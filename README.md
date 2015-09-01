@@ -1,4 +1,4 @@
-# dd-common - [AngularJS](http://angularjs.org/) directives which we use everyday
+# dd-common - [AngularJS](http://angularjs.org/) services, utilities and directives common among our projects
 
 ***
 
@@ -6,7 +6,7 @@
 
 ## Demo
 
-Do you want to see directives in action? Visit http://clickataxi.github.io/dd-common/!
+Do you want to see these modules in action? Visit http://clickataxi.github.io/dd-common/!
 
 ## Installation
 
@@ -23,7 +23,7 @@ angular.module('myModule', ['dd.common']);
 
 ## Supported browsers
 
-Directives from this repository are automatically tested with the following browsers:
+Components from this repository are automatically tested with the following browsers:
 * Chrome (stable and canary channel)
 * Firefox
 * IE 9 and 10
@@ -32,34 +32,9 @@ Directives from this repository are automatically tested with the following brow
 
 Modern mobile browsers should work without problems.
 
-**IE 8 is not officially supported at the moment**
-We are not in the position to guarantee IE8 support. If you need support for IE8 we would welcome a contributor who would like to take care about IE8.
-
-We believe that most of the directives would work OK after:
-* including relevant shims (for ES5 we recommend https://github.com/kriskowal/es5-shim)
-* taking care of the steps described in http://docs.angularjs.org/guide/ie
-
-We are simply not regularly testing against IE8.
-
-## Project philosophy
-
-### Native, lightweight directives
-
-TODO:
-The goal is to provide **native AngularJS directives** without any dependency on jQuery or Bootstrap's JavaScript.
-It is often better to rewrite an existing JavaScript code and create a new, pure AngularJS directive. Most of the time the resulting directive is smaller as compared to the original JavaScript code size and better integrated into the AngularJS ecosystem.
-
-### Customizability
-
-All the directives in this repository should have their markup externalized as templates (loaded via `templateUrl`). In practice it means that you can **customize directive's markup at will**. One could even imagine providing a non-standard version of the templates!
-
-### Take what you need and not more
-
-Each directive has its own AngularJS module without any dependencies on other modules or third-party JavaScript code. In practice it means that you can **just grab the code for the directives you need** and you are not obliged to drag the whole repository.
-
 ### Quality and stability
 
-Directives should work. All the time and in all browsers. This is why all the directives have a comprehensive suite of unit tests. All the automated tests are executed on each checkin in several browsers: Chrome, ChromeCanary, Firefox, Opera, Safari, IE9.
+Components should work. All the time and in all browsers. This is why all the components have a comprehensive suite of unit tests. All the automated tests are executed on each checkin.
 In fact we are fortunate enough to **benefit from the same testing infrastructure as AngularJS**!
 
 ## Support
@@ -99,7 +74,7 @@ Add the `--coverage` option (e.g. `grunt test --coverage`, `grunt watch --covera
 
 ### Customize templates
 
-As mentioned directives from this repository have all the markup externalized in templates. You might want to customize default
+As mentioned components from this repository have all the markup externalized in templates. You might want to customize default
 templates to match your desired look & feel, add new functionality etc.
 
 The easiest way to override an individual template is to use the `<script>` directive:
