@@ -9,7 +9,3 @@ Application state tracker is used for global state tracking.
   * `isBusy()`
   :
   Returns value assigned by setBusy(val), which tells if application is busy.
-
-  * `anyRequestsPending()`
-  :
-  Returns true if any http requests are pending.
