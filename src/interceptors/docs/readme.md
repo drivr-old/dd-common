@@ -1,0 +1,3 @@
+Interceptors module contains various http interceptors built for automating some logic on http events. They use other services for state tracking.
+
+<b>Alerts interceptor</b> handles http response errors and shows error alerts using <a href="#growler">Growler</a>. In order for it to work, a `showErrors: true` flag needs to be passed into request config. Interceptor will clear all errors on a new request and show an error message on failed request, with an exception of 404, which is not considered an error, but rather a normal response. It also supports showing errors on modals. For this a growl container with reference "modal" needs to be present.
