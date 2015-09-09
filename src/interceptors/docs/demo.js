@@ -1,5 +1,7 @@
 var demo = angular.module('dd.common.demo');
 demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$modal', 'appState', function($scope, $http, $httpBackend, $modal, appState) {
+    $scope.appState = appState;
+
     $scope.fail = function(errorCode) {
         var url = 'http://server.local/fake/' + errorCode;
         $httpBackend.whenGET(url).respond(errorCode, {
@@ -25,8 +27,16 @@ demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$mo
             templateUrl: 'modal.html'
         });
     };
+
+    $scope.makeRequest = function() {
+        var url = 'http://jsonplaceholder.typicode.com/comments';
+        $httpBackend.whenGET(url).passThrough();
+
+        $http.get(url, { controlBusyState: true });
+    };
 }]);
 
 demo.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('alertsInterceptor');
+    $httpProvider.interceptors.push('busyInterceptor');
 }]);

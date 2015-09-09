@@ -29,4 +29,13 @@
             </div>
         </div>    
     </script>
+
+    <h2>Busy interceptor</h2>
+
+    <div class="form-group" ng-show="appState.isBusy()">
+        <img src="assets/spinner.gif"/>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" ng-click="makeRequest()">Make request</button>
+    </div>    
 </div>
