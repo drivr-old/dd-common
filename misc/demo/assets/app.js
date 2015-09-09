@@ -1,4 +1,4 @@
-angular.module('dd.common.demo', ['dd.common', 'plunker', 'ngTouch', 'ngAnimate'], function ($httpProvider) {
+angular.module('dd.common.demo', ['dd.common', 'plunker', 'ngTouch', 'ngAnimate', 'ui.bootstrap'], function ($httpProvider) {
 	FastClick.attach(document.body);
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }).run(['$location', function ($location) {
@@ -10,7 +10,3 @@ angular.module('dd.common.demo', ['dd.common', 'plunker', 'ngTouch', 'ngAnimate'
 			}
 		}
 	]);
-
-angular.module('dd.common.demo').controller('MainCtrl', ['$scope', function MainCtrl($scope) {
-	
-}]);

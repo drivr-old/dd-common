@@ -12,16 +12,19 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/<%= ngversion %>/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/<%= ngversion %>/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/<%= ngversion %>/angular-animate.min.js"></script>
-    <script src="dd-common-<%= pkg.version%>.min.js"></script>
+    <script src="assets/ui-bootstrap-tpls-0.13.4.min.js"></script>
+    <script src="dd-common-tpls-<%= pkg.version%>.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
+    <script src="assets/angular-growl.js"></script>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/<%= bsversion %>/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="assets/rainbow.css"/>
     <link rel="stylesheet" href="assets/demo.css"/>
+    <link rel="stylesheet" href="assets/angular-growl.css"/>
     <link rel="author" href="https://github.com/clickataxi/dd-common/graphs/contributors">
 </head>
-<body class="ng-cloak" ng-controller="MainCtrl">
+<body class="ng-cloak">
 <header class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -138,6 +141,7 @@
                     </p>
                     <ul>
                         <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with <%= ngversion %>)</li>
+                        <li><a href="https://github.com/JanStevens/angular-growl-2" target="_blank">angular-growl-2</a> is required by growler</li>                        
                     </ul>
                     <h3>Files to download</h3>
                     <p>

@@ -1,0 +1,50 @@
+<div ng-controller="growlerDemoCtrl">
+    <div growl></div>
+    
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addError()" class="btn btn-danger">Add error</button>
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="errorMsg" class="form-control"/>    
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addSuccess()" class="btn btn-success">Add success</button>   
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="successMsg" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addInfo()" class="btn btn-info">Add info</button>
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="infoMsg" class="form-control"/>    
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addWarning()" class="btn btn-warning">Add warning</button>   
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="warningMsg" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="permanent" class="col-md-3">Permanent</label>
+            <div class="col-md-3">
+                <input type="checkbox" ng-model="isPermanent" id="permanent" />
+            </div>
+        </div>
+        <hr />
+        <button type="button" ng-click="clearErrors()" class="btn btn-danger">Clear errors</button>
+        <button type="button" ng-click="clearSuccess()" class="btn btn-success">Clear success</button>
+        <button type="button" ng-click="clearInfos()" class="btn btn-info">Clear info</button>
+        <button type="button" ng-click="clearWarnings()" class="btn btn-warning">Clear warnings</button>
+        <button type="button" ng-click="clearAll()" class="btn btn-primary">Clear all</button>
+    </div>
+</div>
