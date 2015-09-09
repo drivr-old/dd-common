@@ -5,23 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Drivr common</title>
-    <meta name="description" content="AngularJS (Angular) native directives. Widgets: ">
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Growler, ">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
-    <script src="dd-common-0.1.0.min.js"></script>
+    <script src="assets/ui-bootstrap-tpls-0.13.4.min.js"></script>
+    <script src="dd-common-tpls-0.1.0.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
+    <script src="assets/angular-growl.js"></script>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="assets/rainbow.css"/>
     <link rel="stylesheet" href="assets/demo.css"/>
+    <link rel="stylesheet" href="assets/angular-growl.css"/>
     <link rel="author" href="https://github.com/clickataxi/dd-common/graphs/contributors">
 </head>
-<body class="ng-cloak" ng-controller="MainCtrl">
+<body class="ng-cloak">
 <header class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -44,7 +47,7 @@
                             Modules <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            
+                            <li><a href="#growler">Growler</a></li>
                         </ul>
                     </li>
                     <li><a href="#getting_started">Getting started</a></li>
@@ -122,6 +125,8 @@
                     <ul class="nav bs-sidenav">
                         <li><a href="#"><strong>Modules</strong></a></li>
                         
+                            <li><a href="#growler">Growler</a></li>
+                        
                     </ul>
                 </section>
 
@@ -136,6 +141,7 @@
                     </p>
                     <ul>
                         <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.4.3)</li>
+                        <li><a href="https://github.com/JanStevens/angular-growl-2" target="_blank">angular-growl-2</a> is required by growler</li>                        
                     </ul>
                     <h3>Files to download</h3>
                     <p>
@@ -150,6 +156,249 @@
                     </p>
                     <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
                 </section>
+                
+                    <section id="growler">
+                        <div class="page-header">
+                          <h1>Growler<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-common/tree/master/src/growler">dd.common.growler</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="growlerDemoCtrl">
+    <div growl></div>
+    
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addError()" class="btn btn-danger">Add error</button>
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="errorMsg" class="form-control"/>    
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addSuccess()" class="btn btn-success">Add success</button>   
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="successMsg" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addInfo()" class="btn btn-info">Add info</button>
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="infoMsg" class="form-control"/>    
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <button type="button" ng-click="addWarning()" class="btn btn-warning">Add warning</button>   
+            </div>
+            <div class="col-md-9">
+                <input type="text" ng-model="warningMsg" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="permanent" class="col-md-3">Permanent</label>
+            <div class="col-md-3">
+                <input type="checkbox" ng-model="isPermanent" id="permanent" />
+            </div>
+        </div>
+        <hr />
+        <button type="button" ng-click="clearErrors()" class="btn btn-danger">Clear errors</button>
+        <button type="button" ng-click="clearSuccess()" class="btn btn-success">Clear success</button>
+        <button type="button" ng-click="clearInfos()" class="btn btn-info">Clear info</button>
+        <button type="button" ng-click="clearWarnings()" class="btn btn-warning">Clear warnings</button>
+        <button type="button" ng-click="clearAll()" class="btn btn-primary">Clear all</button>
+    </div>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>growler is an <a href="https://github.com/JanStevens/angular-growl-2" target="_blank">angular-growl-2</a> wrapper with additional functionality. It supports all the standard angular-growl methods, like <code>error</code>, <code>info</code>, <code>warning</code>, <code>success</code> and some extension methods.</p>
+
+<h3>growler extension methods</h3>
+
+<ul>
+<li><p><code>clearAll()</code>
+:
+Clears all of the alerts.</p></li>
+<li><p><code>clearErrors()</code>
+:
+Clears all of the error alerts.</p></li>
+<li><p><code>clearWarnings()</code>
+:
+Clears all of the warning alerts.</p></li>
+<li><p><code>clearInfos()</code>
+:
+Clears all of the info alerts.</p></li>
+<li><p><code>clearSuccesses()</code>
+:
+Clears all of the success alerts.</p></li>
+</ul>
+
+<p>In addition to that, it is possible to make an alert permanent, completely ignoring all of the above methods. To do this a flag <code>isPermanent: true</code> needs to be passed to one of the growl methods.</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.0', 'growler')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;growlerDemoCtrl&quot;&gt;
+    &lt;div growl&gt;&lt;/div&gt;
+    
+    &lt;div class=&quot;form-horizontal&quot;&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;col-md-3&quot;&gt;
+                &lt;button type=&quot;button&quot; ng-click=&quot;addError()&quot; class=&quot;btn btn-danger&quot;&gt;Add error&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-md-9&quot;&gt;
+                &lt;input type=&quot;text&quot; ng-model=&quot;errorMsg&quot; class=&quot;form-control&quot;/&gt;    
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;col-md-3&quot;&gt;
+                &lt;button type=&quot;button&quot; ng-click=&quot;addSuccess()&quot; class=&quot;btn btn-success&quot;&gt;Add success&lt;/button&gt;   
+            &lt;/div&gt;
+            &lt;div class=&quot;col-md-9&quot;&gt;
+                &lt;input type=&quot;text&quot; ng-model=&quot;successMsg&quot; class=&quot;form-control&quot; /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;col-md-3&quot;&gt;
+                &lt;button type=&quot;button&quot; ng-click=&quot;addInfo()&quot; class=&quot;btn btn-info&quot;&gt;Add info&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-md-9&quot;&gt;
+                &lt;input type=&quot;text&quot; ng-model=&quot;infoMsg&quot; class=&quot;form-control&quot;/&gt;    
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;col-md-3&quot;&gt;
+                &lt;button type=&quot;button&quot; ng-click=&quot;addWarning()&quot; class=&quot;btn btn-warning&quot;&gt;Add warning&lt;/button&gt;   
+            &lt;/div&gt;
+            &lt;div class=&quot;col-md-9&quot;&gt;
+                &lt;input type=&quot;text&quot; ng-model=&quot;warningMsg&quot; class=&quot;form-control&quot; /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;permanent&quot; class=&quot;col-md-3&quot;&gt;Permanent&lt;/label&gt;
+            &lt;div class=&quot;col-md-3&quot;&gt;
+                &lt;input type=&quot;checkbox&quot; ng-model=&quot;isPermanent&quot; id=&quot;permanent&quot; /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;hr /&gt;
+        &lt;button type=&quot;button&quot; ng-click=&quot;clearErrors()&quot; class=&quot;btn btn-danger&quot;&gt;Clear errors&lt;/button&gt;
+        &lt;button type=&quot;button&quot; ng-click=&quot;clearSuccess()&quot; class=&quot;btn btn-success&quot;&gt;Clear success&lt;/button&gt;
+        &lt;button type=&quot;button&quot; ng-click=&quot;clearInfos()&quot; class=&quot;btn btn-info&quot;&gt;Clear info&lt;/button&gt;
+        &lt;button type=&quot;button&quot; ng-click=&quot;clearWarnings()&quot; class=&quot;btn btn-warning&quot;&gt;Clear warnings&lt;/button&gt;
+        &lt;button type=&quot;button&quot; ng-click=&quot;clearAll()&quot; class=&quot;btn btn-primary&quot;&gt;Clear all&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">var demo = angular.module(&#x27;dd.common.demo&#x27;).controller(&#x27;growlerDemoCtrl&#x27;, function ($scope, growler) {
+    $scope.errorMsg = &#x27;Sample error&#x27;;
+    $scope.successMsg = &#x27;Sample success&#x27;;
+    $scope.infoMsg = &#x27;Sample info&#x27;;
+    $scope.warningMsg = &#x27;Sample warning&#x27;;
+    
+    $scope.isPermanent = false;
+
+    $scope.addError = function() {
+        growler.error($scope.errorMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.addSuccess = function() {
+        growler.success($scope.successMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.addInfo = function() {
+        growler.info($scope.infoMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.addWarning = function() {
+        growler.warning($scope.warningMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.clearErrors = function () {
+        growler.clearErrors();
+    };
+
+    $scope.clearSuccess = function () {
+        growler.clearSuccesses();
+    };
+
+    $scope.clearInfos = function () {
+        growler.clearInfos();
+    };
+
+    $scope.clearWarnings = function () {
+        growler.clearWarnings();
+    };
+
+    $scope.clearAll = function () {
+        growler.clearAll();
+    };
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>var demo = angular.module('dd.common.demo').controller('growlerDemoCtrl', function ($scope, growler) {
+    $scope.errorMsg = 'Sample error';
+    $scope.successMsg = 'Sample success';
+    $scope.infoMsg = 'Sample info';
+    $scope.warningMsg = 'Sample warning';
+    
+    $scope.isPermanent = false;
+
+    $scope.addError = function() {
+        growler.error($scope.errorMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.addSuccess = function() {
+        growler.success($scope.successMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.addInfo = function() {
+        growler.info($scope.infoMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.addWarning = function() {
+        growler.warning($scope.warningMsg, { isPermanent: $scope.isPermanent });
+    };
+
+    $scope.clearErrors = function () {
+        growler.clearErrors();
+    };
+
+    $scope.clearSuccess = function () {
+        growler.clearSuccesses();
+    };
+
+    $scope.clearInfos = function () {
+        growler.clearInfos();
+    };
+
+    $scope.clearWarnings = function () {
+        growler.clearWarnings();
+    };
+
+    $scope.clearAll = function () {
+        growler.clearAll();
+    };
+});</script>
                 
             </div>
         </div>
