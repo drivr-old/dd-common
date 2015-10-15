@@ -206,4 +206,13 @@
             expect(warningAlert.destroy.calls.count()).toBe(0);
         });
     });
+
+    describe('Growl exceptions', function() {
+        it('are swallowed when clearing messages.', function() {
+            errorAlert.destroy.and.callFake(function() { throw new Error('growl error'); });
+
+            growler.error('message');
+            growler.clearAll();
+        });
+    });
 });

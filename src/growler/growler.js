@@ -46,9 +46,7 @@ angular.module('dd.common.growler').service('growler', ['growl', function (growl
 
         if (!severity) {
             angular.forEach(alerts, function (alert) {
-                if (alert && alert.destroy) {
-                    alert.destroy();
-                }
+                safeDestroyAlert(alert);
             });
 
             alerts.splice(0, alert.length);
@@ -57,23 +55,28 @@ angular.module('dd.common.growler').service('growler', ['growl', function (growl
 
         for (var i = 0; i < alerts.length; i++) {
             if (alerts[i].severity == severity) {
-                alerts[i].destroy();
+                safeDestroyAlert(alerts[i]);
                 alerts.splice(i--, 1);
             }
+        }
+    }
+
+    function safeDestroyAlert(alert) {
+        try {
+            alert.destroy();
+        } catch (e) {
         }
     }
 
     function addAlert(message, severity, config) {
         var alert = growl[severity](message, config);
 
-        if (!alert) {
-            return;
-        }
-
         if (config && config.isPermanent) {
             return;
         }
 
-        alerts.push(alert);
+        if (alert) {
+            alerts.push(alert);
+        }
     }
 }]);
