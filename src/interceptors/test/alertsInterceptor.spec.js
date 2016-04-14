@@ -39,14 +39,19 @@
             expect(growler.error).not.toHaveBeenCalled();
         });
 
-        it('shows an error message on modal dialog if modal growl container is found.', function () {
+        it('shows an error message on modal dialog if visible modal growl container is found.', function () {
             inject(function ($compile, $rootScope, $document) {
-                var element = $compile('<div growl reference="modal"></div>')($rootScope);
+                var element = $compile('<div class="modal"><div growl reference="modal"></div></div>')($rootScope);
                 element.appendTo($document[0].body);
                 $rootScope.$digest();
             });
 
             var reason = { config: { showErrors: true } };
+            alertsInterceptor.responseError(reason);
+            expect(growler.error).not.toHaveBeenCalledWith('Unhandled exception occurred.', { referenceId: 'modal' });
+            expect(growler.error).toHaveBeenCalledWith('Unhandled exception occurred.');
+
+            angular.element('.modal').addClass('in');
             alertsInterceptor.responseError(reason);
             expect(growler.error).toHaveBeenCalledWith('Unhandled exception occurred.', { referenceId: 'modal' });
         });
