@@ -15,26 +15,26 @@
 
     describe('On request', function() {
         it('clears all errrors if error reporting is enabled.', function () {
-            alertsInterceptor.request({ showErrors: true });
+            alertsInterceptor.request({});
             expect(growler.clearErrors).toHaveBeenCalled();
         });
     });
 
     describe('On response error', function () {
         it('shows an error message if error reporting is enabled.', function () {
-            var reason = { data: { message: 'error msg' }, config: { showErrors: true } };
+            var reason = { data: { message: 'error msg' }, config: { } };
             alertsInterceptor.responseError(reason);
             expect(growler.error).toHaveBeenCalledWith(reason.data.message);
         });
 
         it('doesnt show an error message if error reporting is not enabled.', function () {
-            var reason = { config: { showErrors: false } };
+            var reason = { config: { doNotShowErrors: true } };
             alertsInterceptor.responseError(reason);
             expect(growler.error).not.toHaveBeenCalled();
         });
 
         it('doesnt show an error message for GET 404 error response.', function() {
-            var reason = { config: { showErrors: true, method: 'GET' }, status: 404 };
+            var reason = { config: { method: 'GET', doNotShowErrors : true }, status: 404 };
             alertsInterceptor.responseError(reason);
             expect(growler.error).not.toHaveBeenCalled();
         });
@@ -46,7 +46,7 @@
                 $rootScope.$digest();
             });
 
-            var reason = { config: { showErrors: true } };
+            var reason = { config: { } };
             alertsInterceptor.responseError(reason);
             expect(growler.error).not.toHaveBeenCalledWith('Unhandled exception occurred.', { referenceId: 'modal' });
             expect(growler.error).toHaveBeenCalledWith('Unhandled exception occurred.');
