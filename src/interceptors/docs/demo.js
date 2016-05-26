@@ -16,7 +16,7 @@ demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$mo
             message: 'This will not be shown.'
         });
         $http.get(url, {
-            doNotShowErrors: true
+            ignoreErrors: true
         });
     };
 

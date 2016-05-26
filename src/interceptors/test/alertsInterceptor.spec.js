@@ -28,13 +28,13 @@
         });
 
         it('doesnt show an error message if error reporting is not enabled.', function () {
-            var reason = { config: { doNotShowErrors: true } };
+            var reason = { config: { ignoreErrors: true } };
             alertsInterceptor.responseError(reason);
             expect(growler.error).not.toHaveBeenCalled();
         });
 
         it('doesnt show an error message for GET 404 error response.', function() {
-            var reason = { config: { method: 'GET', doNotShowErrors : true }, status: 404 };
+            var reason = { config: { method: 'GET', ignoreErrors: true }, status: 404 };
             alertsInterceptor.responseError(reason);
             expect(growler.error).not.toHaveBeenCalled();
         });
