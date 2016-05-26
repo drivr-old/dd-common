@@ -16,7 +16,7 @@
     "grunt-html2js": "^0.3.0",
     "grunt-karma": "^0.12.0",
     "jasmine-core": "^2.2.0",
-    "karma": "0.13.5",
+    "karma": "0.13.22",
     "karma-jasmine": "^0.3.5",
     "karma-chrome-launcher": "^0.2.0",
     "karma-phantomjs-launcher": "latest",
