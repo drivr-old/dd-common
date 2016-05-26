@@ -7,9 +7,7 @@ demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$mo
         $httpBackend.whenGET(url).respond(errorCode, {
             message: 'Fake error response: ' + errorCode
         });
-        $http.get(url, {
-            showErrors: true
-        });
+        $http.get(url, {});
     };
 
     $scope.noError = function() {
@@ -18,7 +16,7 @@ demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$mo
             message: 'This will not be shown.'
         });
         $http.get(url, {
-            showErrors: false
+            ignoreErrors: true
         });
     };
 
