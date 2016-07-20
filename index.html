@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
     <script src="assets/ui-bootstrap-tpls-0.13.4.min.js"></script>
-    <script src="dd-common-tpls-0.1.2.min.js"></script>
+    <script src="dd-common-tpls-0.1.5.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
     <script src="assets/angular-growl.js"></script>
@@ -199,7 +199,7 @@ Returns value assigned by setBusy(val), which tells if application is busy.</p><
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.2', 'appState')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.5', 'appState')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -331,7 +331,7 @@ Clears all of the success alerts.</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.2', 'growler')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.5', 'growler')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -502,6 +502,7 @@ Clears all of the success alerts.</p></li>
         <button type="button" ng-click="fail(404)" class="btn btn-danger">404 (no alert)</button>
         <button type="button" ng-click="fail(401)" class="btn btn-danger">401</button>
         <button type="button" ng-click="fail(500)" class="btn btn-danger">500</button>
+        <button type="button" ng-click="fail(-1)" class="btn btn-danger">-1</button>
         <button type="button" ng-click="noError()" class="btn btn-warning">No error reporting</button>
     </div>
     <div>
@@ -518,6 +519,7 @@ Clears all of the success alerts.</p></li>
                 <button type="button" ng-click="fail(404)" class="btn btn-danger">404 (no alert)</button>
                 <button type="button" ng-click="fail(401)" class="btn btn-danger">401</button>
                 <button type="button" ng-click="fail(500)" class="btn btn-danger">500</button>
+                <button type="button" ng-click="fail(-1)" class="btn btn-danger">-1</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" ng-click="$dismiss()">Close</button>
@@ -538,7 +540,7 @@ Clears all of the success alerts.</p></li>
                             <div class="col-md-6">
                                 <p>Interceptors module contains various http interceptors built for automating some logic on http events. They use other services for state tracking.</p>
 
-<p><b>Alerts interceptor</b> handles http response errors and shows error alerts using <a href="#growler">Growler</a>. In order for it to work, a <code>showErrors: true</code> flag needs to be passed into request config. Interceptor will clear all errors on a new request and show an error message on failed request, with an exception of 404, which is not considered an error, but rather a normal response. It also supports showing errors on modals. For this a growl container with reference "modal" needs to be present.</p>
+<p><b>Alerts interceptor</b> handles http response errors and shows error alerts using <a href="#growler">Growler</a>. Interceptor will clear all errors on a new request and show an error message on failed request, with an exception of 404, which is not considered an error, but rather a normal response. It also supports showing errors on modals. For this a growl container with reference "modal" needs to be present. If you want to not show an error message on error - provide <code>ignoreErrors: true</code> in request config. Client side request failures or time-outs will be shown as network connection errors. However, if a request has a <code>timeout</code> property then the error will not be shown, as the request might have been cancelled.</p>
 
 <p><b>Busy interceptor</b> helps track busy state of application using the <a href="#appState">App State</a> service. In order for it to work, a <code>controlBusyState: true</code> flag needs to be passed into request config.</p>
                             </div>
@@ -547,7 +549,7 @@ Clears all of the success alerts.</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.2', 'interceptors')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.5', 'interceptors')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -561,6 +563,7 @@ Clears all of the success alerts.</p></li>
         &lt;button type=&quot;button&quot; ng-click=&quot;fail(404)&quot; class=&quot;btn btn-danger&quot;&gt;404 (no alert)&lt;/button&gt;
         &lt;button type=&quot;button&quot; ng-click=&quot;fail(401)&quot; class=&quot;btn btn-danger&quot;&gt;401&lt;/button&gt;
         &lt;button type=&quot;button&quot; ng-click=&quot;fail(500)&quot; class=&quot;btn btn-danger&quot;&gt;500&lt;/button&gt;
+        &lt;button type=&quot;button&quot; ng-click=&quot;fail(-1)&quot; class=&quot;btn btn-danger&quot;&gt;-1&lt;/button&gt;
         &lt;button type=&quot;button&quot; ng-click=&quot;noError()&quot; class=&quot;btn btn-warning&quot;&gt;No error reporting&lt;/button&gt;
     &lt;/div&gt;
     &lt;div&gt;
@@ -577,6 +580,7 @@ Clears all of the success alerts.</p></li>
                 &lt;button type=&quot;button&quot; ng-click=&quot;fail(404)&quot; class=&quot;btn btn-danger&quot;&gt;404 (no alert)&lt;/button&gt;
                 &lt;button type=&quot;button&quot; ng-click=&quot;fail(401)&quot; class=&quot;btn btn-danger&quot;&gt;401&lt;/button&gt;
                 &lt;button type=&quot;button&quot; ng-click=&quot;fail(500)&quot; class=&quot;btn btn-danger&quot;&gt;500&lt;/button&gt;
+                &lt;button type=&quot;button&quot; ng-click=&quot;fail(-1)&quot; class=&quot;btn btn-danger&quot;&gt;-1&lt;/button&gt;
             &lt;/div&gt;
             &lt;div class=&quot;modal-footer&quot;&gt;
                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;$dismiss()&quot;&gt;Close&lt;/button&gt;
@@ -606,9 +610,7 @@ demo.controller(&#x27;InterceptorsDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$ht
         $httpBackend.whenGET(url).respond(errorCode, {
             message: &#x27;Fake error response: &#x27; + errorCode
         });
-        $http.get(url, {
-            showErrors: true
-        });
+        $http.get(url, {});
     };
 
     $scope.noError = function() {
@@ -617,7 +619,7 @@ demo.controller(&#x27;InterceptorsDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$ht
             message: &#x27;This will not be shown.&#x27;
         });
         $http.get(url, {
-            showErrors: false
+            ignoreErrors: true
         });
     };
 
@@ -654,9 +656,7 @@ demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$mo
         $httpBackend.whenGET(url).respond(errorCode, {
             message: 'Fake error response: ' + errorCode
         });
-        $http.get(url, {
-            showErrors: true
-        });
+        $http.get(url, {});
     };
 
     $scope.noError = function() {
@@ -665,7 +665,7 @@ demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$mo
             message: 'This will not be shown.'
         });
         $http.get(url, {
-            showErrors: false
+            ignoreErrors: true
         });
     };
 
@@ -731,7 +731,7 @@ demo.config(['$httpProvider', function($httpProvider) {
     </div>
     <div class="modal-footer">
         <a class="btn btn-default" ng-click="cancel()">Close</a>
-        <a class="btn btn-primary" ng-href="{{download('0.1.2')}}" download><i class="glyphicon glyphicon-download-alt"></i> Download 0.1.2</a>
+        <a class="btn btn-primary" ng-href="{{download('0.1.5')}}" download><i class="glyphicon glyphicon-download-alt"></i> Download 0.1.5</a>
     </div>
 </script>
 <script type="text/javascript">
