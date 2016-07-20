@@ -54,7 +54,7 @@ angular.module('dd.common.growler').service('growler', ['growl', function (growl
         }
 
         for (var i = 0; i < alerts.length; i++) {
-            if (alerts[i].severity == severity) {
+            if (alerts[i].severity === severity) {
                 safeDestroyAlert(alerts[i]);
                 alerts.splice(i--, 1);
             }

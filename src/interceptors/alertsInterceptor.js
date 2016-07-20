@@ -10,14 +10,18 @@ angular.module('dd.common.interceptors.alertsInterceptor').factory('alertsInterc
             return config || $q.when(config);
         },
         'responseError': function (reason) {
-            var msg = reason.data && (reason.data.systemMessage || reason.data.message || reason.data.Message) || 'Unhandled exception occurred.';
-            if (reason && reason.config && reason.config.ignoreErrors !== true) {
-                if (!(reason.status === 404 && reason.config.method === 'GET')) {
-                    if (angular.element('.modal.in [growl][reference=modal]').length) {
-                        growler.error(msg, { referenceId: 'modal' });
-                    } else {
-                        growler.error(msg);
-                    }
+            if (reason.config && reason.config.ignoreErrors !== true &&
+                !(reason.status === 404 && reason.config.method === 'GET') &&
+                !(reason.status <= 0 && reason.config.timeout)) { // possibly aborted
+
+                var msg = (reason.status > 0) ?
+                        reason.data && (reason.data.systemMessage || reason.data.message || reason.data.Message) || 'Unhandled error occurred.' :
+                        'Network connection error.';
+
+                if (angular.element('.modal.in [growl][reference=modal]').length) {
+                    growler.error(msg, { referenceId: 'modal' });
+                } else {
+                    growler.error(msg);
                 }
             }
 

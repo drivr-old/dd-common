@@ -22,7 +22,7 @@
 
     describe('On response error', function () {
         it('shows an error message if error reporting is enabled.', function () {
-            var reason = { data: { message: 'error msg' }, config: { } };
+            var reason = { status: 400, data: { message: 'error msg' }, config: { } };
             alertsInterceptor.responseError(reason);
             expect(growler.error).toHaveBeenCalledWith(reason.data.message);
         });
@@ -39,6 +39,24 @@
             expect(growler.error).not.toHaveBeenCalled();
         });
 
+        it('shows a connection error message if status is 0.', function () {
+            var reason = { status: 0, config: { } };
+            alertsInterceptor.responseError(reason);
+            expect(growler.error).toHaveBeenCalledWith('Network connection error.');
+        });
+
+        it('shows a connection error message if status is -1.', function () {
+            var reason = { status: -1, config: { } };
+            alertsInterceptor.responseError(reason);
+            expect(growler.error).toHaveBeenCalledWith('Network connection error.');
+        });
+
+        it('doesnt show a connection error message if request has a timeout.', function () {
+            var reason = { status: -1, config: { timeout: {} } };
+            alertsInterceptor.responseError(reason);
+            expect(growler.error).not.toHaveBeenCalled();
+        });
+
         it('shows an error message on modal dialog if visible modal growl container is found.', function () {
             inject(function ($compile, $rootScope, $document) {
                 var element = $compile('<div class="modal"><div growl reference="modal"></div></div>')($rootScope);
@@ -46,14 +64,14 @@
                 $rootScope.$digest();
             });
 
-            var reason = { config: { } };
+            var reason = { status: 400, config: { } };
             alertsInterceptor.responseError(reason);
-            expect(growler.error).not.toHaveBeenCalledWith('Unhandled exception occurred.', { referenceId: 'modal' });
-            expect(growler.error).toHaveBeenCalledWith('Unhandled exception occurred.');
+            expect(growler.error).not.toHaveBeenCalledWith('Unhandled error occurred.', { referenceId: 'modal' });
+            expect(growler.error).toHaveBeenCalledWith('Unhandled error occurred.');
 
             angular.element('.modal').addClass('in');
             alertsInterceptor.responseError(reason);
-            expect(growler.error).toHaveBeenCalledWith('Unhandled exception occurred.', { referenceId: 'modal' });
+            expect(growler.error).toHaveBeenCalledWith('Unhandled error occurred.', { referenceId: 'modal' });
         });
     });
 });
