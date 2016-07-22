@@ -27,6 +27,18 @@
             expect(growler.error).toHaveBeenCalledWith(reason.data.message);
         });
 
+        it('shows message over system message.', function () {
+            var reason = { status: 400, data: { message: 'user msg', systemMessage: 'system msg' }, config: { } };
+            alertsInterceptor.responseError(reason);
+            expect(growler.error).toHaveBeenCalledWith(reason.data.message);
+        });
+
+        it('shows system message if no message.', function () {
+            var reason = { status: 400, data: { systemMessage: 'system msg' }, config: { } };
+            alertsInterceptor.responseError(reason);
+            expect(growler.error).toHaveBeenCalledWith(reason.data.systemMessage);
+        });
+
         it('doesnt show an error message if error reporting is not enabled.', function () {
             var reason = { config: { ignoreErrors: true } };
             alertsInterceptor.responseError(reason);
