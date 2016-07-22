@@ -15,7 +15,7 @@ angular.module('dd.common.interceptors.alertsInterceptor').factory('alertsInterc
                 !(reason.status <= 0 && reason.config.timeout)) { // possibly aborted
 
                 var msg = (reason.status > 0) ?
-                        reason.data && (reason.data.systemMessage || reason.data.message || reason.data.Message) || 'Unhandled error occurred.' :
+                        reason.data && (reason.data.message || reason.data.Message || reason.data.systemMessage) || 'Unhandled error occurred.' :
                         'Network connection error.';
 
                 if (angular.element('.modal.in [growl][reference=modal]').length) {
