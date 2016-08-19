@@ -26,5 +26,22 @@
     "lodash": "^4.1.0",
     "grunt-ddescribe-iit": "0.0.6"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "main": "false",
+  "jspm": {
+    "main": "dd-common-0.1.6.js",
+    "directories": {
+      "lib": "dist"
+    },
+    "files": [
+      "dist"
+    ],
+    "ignore": [
+      "dist/assets",
+      "dist/index.html"
+    ],
+    "dependencies": {
+      "angular-growl-2": "github:JanStevens/angular-growl-2@0.7.3"
+    }
+  }
 }
