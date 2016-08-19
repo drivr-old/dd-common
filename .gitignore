@@ -23,3 +23,5 @@ node_modules
 npm-debug.log
 
 template/**/*.js
+
+.grunt/grunt-gh-pages/
