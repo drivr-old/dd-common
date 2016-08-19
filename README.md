@@ -10,16 +10,20 @@ Do you want to see these modules in action? Visit http://clickataxi.github.io/dd
 
 ## Installation
 
-Installation is easy as dd-common has minimal dependencies - only the AngularJS is required.
-After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
-https://github.com/clickataxi/dd-common/tree/gh-pages#build-files
-Don't worry, if you are not sure which file to take, opt for `dd-common-tpls-[version].min.js`.
-
-When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the `dd.common` AngularJS module:
+If you use jspm run `jspm install dd-common=github:clickataxi/dd-common`
 
 ```javascript
+import 'dd-common';
+// ...
 angular.module('myModule', ['dd.common']);
 ```
+
+## Release
+* After your PR is merged switch to master and pull latests changes
+* Bump up package.json version and <b>jspm main file version</b> in `package.json`. If you don't understand this please see previous release commits and look at package.json changes.
+* Open command line and run `grunt release-start`
+* Verify changes are correct and run `grunt release-push`
+* Run `grunt gh-pages` to update demo site
 
 ## Supported browsers
 

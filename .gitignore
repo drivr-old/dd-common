@@ -13,7 +13,9 @@ lib-cov
 pids
 logs
 results
-dist
+dist/assets
+dist/index.html
+
 # test coverage files
 coverage/
 

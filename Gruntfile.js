@@ -7,11 +7,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-ngdocs');
   grunt.loadNpmTasks('grunt-ddescribe-iit');
+  grunt.loadNpmTasks('grunt-gh-pages');
 
   // Project configuration.
   grunt.util.linefeed = '\n';
@@ -156,21 +158,26 @@ module.exports = function(grunt) {
         github: 'clickataxi/dd-common'
       }
     },
-    shell: {
+    shelljs: {
       //We use %version% and evluate it at run-time, because <%= pkg.version %>
       //is only evaluated once
       'release-prepare': [
+        'grunt clean',
         'grunt before-test after-test',
         'grunt version', //remove "-SNAPSHOT"
         'grunt changelog'
       ],
       'release-complete': [
-        'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
+        'git add -A && git commit -m "chore(release): v%version%"',
         'git tag %version%'
       ],
       'release-start': [
         'grunt version:minor:"SNAPSHOT"',
         'git commit package.json -m "chore(release): Starting v%version%"'
+      ],
+      'release-push': [
+          'git push origin master',
+          'git push origin --tags'
       ]
     },
     ngdocs: {
@@ -196,6 +203,14 @@ module.exports = function(grunt) {
       files: [
         'src/**/*.spec.js'
       ]
+    },
+    clean: ['dist'],
+    'gh-pages': {
+        options: {
+            base: 'dist',
+            add: true
+        },
+        src: ['**/*']
     }
   });
 
@@ -218,6 +233,9 @@ module.exports = function(grunt) {
       require('fs').chmodSync('.git/hooks/commit-msg', '0755');
     }
   });
+
+  grunt.registerTask('release-start', ['shelljs:release-prepare', 'shelljs:release-complete', 'shelljs:release-start']);
+  grunt.registerTask('release-push', ['shelljs:release-push']);
 
   //Common dd.common module containing all modules for src and templates
   //findModule: Adds a given module to config
@@ -375,7 +393,7 @@ module.exports = function(grunt) {
     setVersion(this.args[0], this.args[1]);
   });
 
-  grunt.registerMultiTask('shell', 'run shell commands', function() {
+  grunt.registerMultiTask('shelljs', 'run shell commands', function() {
     var self = this;
     var sh = require('shelljs');
     self.data.forEach(function(cmd) {
