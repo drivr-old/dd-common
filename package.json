@@ -1,7 +1,7 @@
 {
   "author": "https://github.com/clickataxi/dd-common/graphs/contributors",
   "name": "dd-common",
-  "version": "0.1.8",
+  "version": "0.2.0-SNAPSHOT",
   "homepage": "http://clickataxi.github.io/dd-common/",
   "dependencies": { },
   "devDependencies": {
