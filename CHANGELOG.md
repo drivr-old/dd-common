@@ -1,3 +1,11 @@
+# 0.1.8 (2016-08-22)
+
+## Features
+
+- **interceptors:** 
+  - CORS Auth interceptor ([702f9d4a](http://github.com/clickataxi/dd-common/commit/702f9d4a))   
+
+
 # 0.1.7 (2016-08-19)
 
 

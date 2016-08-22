@@ -2,10 +2,10 @@
  * dd-common
  * http://clickataxi.github.io/dd-common/
 
- * Version: 0.1.7 - 2016-08-19
+ * Version: 0.1.8 - 2016-08-22
  * License: MIT
  */
-angular.module("dd.common", ["dd.common.appState","dd.common.growler","dd.common.interceptors.alertsInterceptor","dd.common.interceptors.busyInterceptor","dd.common.interceptors"]);
+angular.module("dd.common", ["dd.common.appState","dd.common.growler","dd.common.interceptors.alertsInterceptor","dd.common.interceptors.busyInterceptor","dd.common.interceptors.corsAuthInterceptor","dd.common.interceptors"]);
 angular.module('dd.common.appState', []);
 
 angular.module('dd.common.appState').service('appState', [function() {
@@ -159,4 +159,23 @@ angular.module('dd.common.interceptors.busyInterceptor').factory('busyIntercepto
         }
     };
 }]);
-angular.module('dd.common.interceptors', ['dd.common.interceptors.alertsInterceptor', 'dd.common.interceptors.busyInterceptor']);
+angular.module('dd.common.interceptors.corsAuthInterceptor', ['ngCookies']);
+
+angular.module('dd.common.interceptors.corsAuthInterceptor').factory('corsAuthInterceptor', ['$window', '$cookies', function($window, $cookies) {
+    return {
+        request: function(cfg) {
+            var matches = cfg.url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+            var domain = matches && matches[1];  // domain will be null if no match is found
+
+            if (domain && $window.location.host !== domain && domain.startsWith('admin') && domain.endsWith('drivr.com') && !cfg.headers.Authorization) {
+                var aspxAuth = $cookies.get('.ASPXAUTH');
+                if (aspxAuth) {
+                    cfg.headers.Authorization = aspxAuth;
+                }
+            }
+
+            return cfg;
+        }
+    };
+}]);
+angular.module('dd.common.interceptors', ['dd.common.interceptors.alertsInterceptor', 'dd.common.interceptors.busyInterceptor', 'dd.common.interceptors.corsAuthInterceptor']);

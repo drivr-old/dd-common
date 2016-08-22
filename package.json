@@ -1,7 +1,7 @@
 {
   "author": "https://github.com/clickataxi/dd-common/graphs/contributors",
   "name": "dd-common",
-  "version": "0.2.0-SNAPSHOT",
+  "version": "0.1.8",
   "homepage": "http://clickataxi.github.io/dd-common/",
   "dependencies": { },
   "devDependencies": {
@@ -31,7 +31,7 @@
   "license": "MIT",
   "main": "false",
   "jspm": {
-    "main": "dd-common-0.1.7.js",
+    "main": "dd-common-0.1.8.js",
     "directories": {
       "lib": "dist"
     },
@@ -43,7 +43,8 @@
       "dist/index.html"
     ],
     "dependencies": {
-      "angular-growl-2": "github:JanStevens/angular-growl-2@0.7.3"
+      "angular-growl-2": "github:JanStevens/angular-growl-2@0.7.3",
+      "angular-cookies": "angular-cookies@^1.5.5"
     }
   }
 }
