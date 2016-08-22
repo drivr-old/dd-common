@@ -44,7 +44,7 @@
     ],
     "dependencies": {
       "angular-growl-2": "github:JanStevens/angular-growl-2@0.7.3",
-      "angular-cookies": "angular-cookies@^1.5.5"
+      "angular-cookies": "angular-cookies@1.5.8"
     }
   }
 }
