@@ -12,8 +12,8 @@ module.exports = function(config) {
       'misc/test-lib/angular.js',
       'misc/test-lib/angular-mocks.js',
       'misc/test-lib/angular-growl.js',
-      'src/**/*.js',
-      'template/**/*.js'
+      'misc/test-lib/es6-polyfill.js',
+      'src/**/*.js'
     ],
 
     // list of files to exclude

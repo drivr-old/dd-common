@@ -40,4 +40,17 @@
     <div class="form-group">
         <button class="btn btn-default" ng-click="makeRequest()">Make request</button>
     </div>    
+
+    <h2>CORS Auth interceptor</h2>
+
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Fake ASPX cookie" ng-model="aspxCookie" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" ng-click="makeCORSRequest()">Make request</button>
+    </div>
+    <div class="form-group">
+        <span>Request headers:</span>
+        <textarea disabled="disabled" ng-model="requestHeaders" style="height: 100px; width: 100%"></textarea>
+    </div>    
 </div>
