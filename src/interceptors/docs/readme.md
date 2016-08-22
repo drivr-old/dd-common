@@ -1,5 +1,7 @@
-Interceptors module contains various http interceptors built for automating some logic on http events. They use other services for state tracking.
+Interceptors module contains various http interceptors built for automating some logic on http events. <b>This module is dependent on `ngCookies`</b>, so make sure to add a reference.
 
 <b>Alerts interceptor</b> handles http response errors and shows error alerts using <a href="#growler">Growler</a>. Interceptor will clear all errors on a new request and show an error message on failed request, with an exception of 404, which is not considered an error, but rather a normal response. It also supports showing errors on modals. For this a growl container with reference "modal" needs to be present. If you want to not show an error message on error - provide `ignoreErrors: true` in request config. Client side request failures or time-outs will be shown as network connection errors. However, if a request has a `timeout` property then the error will not be shown, as the request might have been cancelled.
 
 <b>Busy interceptor</b> helps track busy state of application using the <a href="#appState">App State</a> service. In order for it to work, a `controlBusyState: true` flag needs to be passed into request config.
+
+<b>CORS Auth interceptor</b> adds ASPX authorization header to all Cross-Origin DRIVR service requests.

@@ -1,1 +1,1 @@
-angular.module('dd.common.interceptors', ['dd.common.interceptors.alertsInterceptor', 'dd.common.interceptors.busyInterceptor']);
+angular.module('dd.common.interceptors', ['dd.common.interceptors.alertsInterceptor', 'dd.common.interceptors.busyInterceptor', 'dd.common.interceptors.corsAuthInterceptor']);
