@@ -2,7 +2,7 @@
  * dd-common
  * http://clickataxi.github.io/dd-common/
 
- * Version: 0.1.8 - 2016-08-22
+ * Version: 0.1.9 - 2016-08-22
  * License: MIT
  */
 angular.module("dd.common", ["dd.common.tpls", "dd.common.appState","dd.common.growler","dd.common.interceptors.alertsInterceptor","dd.common.interceptors.busyInterceptor","dd.common.interceptors.corsAuthInterceptor","dd.common.interceptors"]);
