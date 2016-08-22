@@ -10,10 +10,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-cookies.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
     <script src="assets/ui-bootstrap-tpls-0.13.4.min.js"></script>
-    <script src="dd-common-tpls-0.1.7.min.js"></script>
+    <script src="dd-common-tpls-0.1.8.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
     <script src="assets/angular-growl.js"></script>
@@ -199,7 +200,7 @@ Returns value assigned by setBusy(val), which tells if application is busy.</p><
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.7', 'appState')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.8', 'appState')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -331,7 +332,7 @@ Clears all of the success alerts.</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.7', 'growler')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.8', 'growler')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -535,21 +536,36 @@ Clears all of the success alerts.</p></li>
     <div class="form-group">
         <button class="btn btn-default" ng-click="makeRequest()">Make request</button>
     </div>    
+
+    <h2>CORS Auth interceptor</h2>
+
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Fake ASPX cookie" ng-model="aspxCookie" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" ng-click="makeCORSRequest()">Make request</button>
+    </div>
+    <div class="form-group">
+        <span>Request headers:</span>
+        <textarea disabled="disabled" ng-model="requestHeaders" style="height: 100px; width: 100%"></textarea>
+    </div>    
 </div>
                             </div>
                             <div class="col-md-6">
-                                <p>Interceptors module contains various http interceptors built for automating some logic on http events. They use other services for state tracking.</p>
+                                <p>Interceptors module contains various http interceptors built for automating some logic on http events. <b>This module is dependent on <code>ngCookies</code></b>, so make sure to add a reference.</p>
 
 <p><b>Alerts interceptor</b> handles http response errors and shows error alerts using <a href="#growler">Growler</a>. Interceptor will clear all errors on a new request and show an error message on failed request, with an exception of 404, which is not considered an error, but rather a normal response. It also supports showing errors on modals. For this a growl container with reference "modal" needs to be present. If you want to not show an error message on error - provide <code>ignoreErrors: true</code> in request config. Client side request failures or time-outs will be shown as network connection errors. However, if a request has a <code>timeout</code> property then the error will not be shown, as the request might have been cancelled.</p>
 
 <p><b>Busy interceptor</b> helps track busy state of application using the <a href="#appState">App State</a> service. In order for it to work, a <code>controlBusyState: true</code> flag needs to be passed into request config.</p>
+
+<p><b>CORS Auth interceptor</b> adds ASPX authorization header to all Cross-Origin DRIVR service requests.</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.7', 'interceptors')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.1.8', 'interceptors')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -596,14 +612,29 @@ Clears all of the success alerts.</p></li>
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;button class=&quot;btn btn-default&quot; ng-click=&quot;makeRequest()&quot;&gt;Make request&lt;/button&gt;
     &lt;/div&gt;    
+
+    &lt;h2&gt;CORS Auth interceptor&lt;/h2&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Fake ASPX cookie&quot; ng-model=&quot;aspxCookie&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;button class=&quot;btn btn-default&quot; ng-click=&quot;makeCORSRequest()&quot;&gt;Make request&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;span&gt;Request headers:&lt;/span&gt;
+        &lt;textarea disabled=&quot;disabled&quot; ng-model=&quot;requestHeaders&quot; style=&quot;height: 100px; width: 100%&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;    
 &lt;/div&gt;</code></pre>
                                         </div>
                                     </tab>
                                     <tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">var demo = angular.module(&#x27;dd.common.demo&#x27;);
-demo.controller(&#x27;InterceptorsDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$http&#x27;, &#x27;$httpBackend&#x27;, &#x27;$modal&#x27;, &#x27;appState&#x27;, function($scope, $http, $httpBackend, $modal, appState) {
+demo.controller(&#x27;InterceptorsDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$http&#x27;, &#x27;$httpBackend&#x27;, &#x27;$modal&#x27;, &#x27;appState&#x27;, &#x27;$cookies&#x27;, function($scope, $http, $httpBackend, $modal, appState, $cookies) {
     $scope.appState = appState;
+    $scope.aspxCookie = &#x27;&#x27;;
+    $scope.requestHeaders = &#x27;&#x27;;
 
     $scope.fail = function(errorCode) {
         var url = &#x27;http://server.local/fake/&#x27; + errorCode;
@@ -635,11 +666,23 @@ demo.controller(&#x27;InterceptorsDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$ht
 
         $http.get(url, { controlBusyState: true });
     };
+
+    $scope.makeCORSRequest = function() {
+        $cookies.put(&#x27;.ASPXAUTH&#x27;, $scope.aspxCookie);
+
+        var url = &#x27;https://admin.master.drivr.com/api/fake&#x27;;
+        $httpBackend.whenGET(url).respond(200);
+
+        $http.get(url).then(function(response) {
+            $scope.requestHeaders = JSON.stringify(response.config.headers, null, 2);
+        });
+    };
 }]);
 
 demo.config([&#x27;$httpProvider&#x27;, function($httpProvider) {
     $httpProvider.interceptors.push(&#x27;alertsInterceptor&#x27;);
     $httpProvider.interceptors.push(&#x27;busyInterceptor&#x27;);
+    $httpProvider.interceptors.push(&#x27;corsAuthInterceptor&#x27;);
 }]);</code></pre>
                                         </div>
                                     </tab>
@@ -648,8 +691,10 @@ demo.config([&#x27;$httpProvider&#x27;, function($httpProvider) {
                         </div>
                     </section>
                     <script>var demo = angular.module('dd.common.demo');
-demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$modal', 'appState', function($scope, $http, $httpBackend, $modal, appState) {
+demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$modal', 'appState', '$cookies', function($scope, $http, $httpBackend, $modal, appState, $cookies) {
     $scope.appState = appState;
+    $scope.aspxCookie = '';
+    $scope.requestHeaders = '';
 
     $scope.fail = function(errorCode) {
         var url = 'http://server.local/fake/' + errorCode;
@@ -681,11 +726,23 @@ demo.controller('InterceptorsDemoCtrl', ['$scope', '$http', '$httpBackend', '$mo
 
         $http.get(url, { controlBusyState: true });
     };
+
+    $scope.makeCORSRequest = function() {
+        $cookies.put('.ASPXAUTH', $scope.aspxCookie);
+
+        var url = 'https://admin.master.drivr.com/api/fake';
+        $httpBackend.whenGET(url).respond(200);
+
+        $http.get(url).then(function(response) {
+            $scope.requestHeaders = JSON.stringify(response.config.headers, null, 2);
+        });
+    };
 }]);
 
 demo.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('alertsInterceptor');
     $httpProvider.interceptors.push('busyInterceptor');
+    $httpProvider.interceptors.push('corsAuthInterceptor');
 }]);</script>
                 
             </div>
@@ -731,7 +788,7 @@ demo.config(['$httpProvider', function($httpProvider) {
     </div>
     <div class="modal-footer">
         <a class="btn btn-default" ng-click="cancel()">Close</a>
-        <a class="btn btn-primary" ng-href="{{download('0.1.7')}}" download><i class="glyphicon glyphicon-download-alt"></i> Download 0.1.7</a>
+        <a class="btn btn-primary" ng-href="{{download('0.1.8')}}" download><i class="glyphicon glyphicon-download-alt"></i> Download 0.1.8</a>
     </div>
 </script>
 <script type="text/javascript">
