@@ -2,15 +2,15 @@
 
 ***
 
-[![Build Status](https://secure.travis-ci.org/clickataxi/dd-common.png)](http://travis-ci.org/clickataxi/dd-common)
+[![Build Status](https://secure.travis-ci.org/drivr/dd-common.png)](http://travis-ci.org/drivr/dd-common)
 
 ## Demo
 
-Do you want to see these modules in action? Visit http://clickataxi.github.io/dd-common/!
+Do you want to see these modules in action? Visit http://drivr.github.io/dd-common/!
 
 ## Installation
 
-If you use jspm run `jspm install dd-common=github:clickataxi/dd-common`
+If you use jspm run `jspm install dd-common=github:drivr/dd-common`
 
 ```javascript
 import 'dd-common';
